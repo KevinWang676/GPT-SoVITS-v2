@@ -704,7 +704,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     slicer_info = gr.Textbox(label=i18n("语音切割进程输出信息"))
             gr.Markdown(value=i18n("0bb-语音降噪工具"))
             with gr.Row():
-                open_denoise_button = gr.Button(i18n("开启语音降噪"), variant="primary",visible=True)
+                open_denoise_button = gr.Button(i18n("开启语音降噪"), visible=True)
                 close_denoise_button = gr.Button(i18n("终止语音降噪进程"), variant="primary",visible=False)
                 denoise_input_dir=gr.Textbox(label=i18n("降噪音频文件输入文件夹"),value="")
                 denoise_output_dir=gr.Textbox(label=i18n("降噪结果输出文件夹"),value="output/denoise_opt")
