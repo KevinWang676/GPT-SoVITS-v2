@@ -1009,21 +1009,6 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     tts_output_audio = gr.Audio(label="Generated Audio.")
                     reference_audio = gr.Audio(label="Reference audio used.")
 
-            prompt_compute_btn.click(
-                fn=preprocess_dataset,
-                inputs=[
-                    upload_file,
-                    lang,
-                    out_path,
-                ],
-                outputs=[
-                    progress_data,
-                    train_csv,
-                    eval_csv,
-                ],
-            )
-
-
             train_btn.click(
                 fn=train_model,
                 inputs=[
