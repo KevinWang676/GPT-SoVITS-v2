@@ -923,7 +923,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 label="Logs:",
                 interactive=False,
             )
-            demo.load(read_logs, None, logs_tts_train, every=1)
+            app.load(read_logs, None, logs_tts_train, every=1)
             train_btn = gr.Button(value="Step 2 - Run the training")
 
             def train_model(language, train_csv, eval_csv, num_epochs, batch_size, grad_acumm, output_path, max_audio_length):
