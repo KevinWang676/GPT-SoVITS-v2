@@ -893,28 +893,28 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 minimum=1,
                 maximum=100,
                 step=1,
-                value=args.num_epochs,
+                value=6,
             )
             batch_size = gr.Slider(
                 label="Batch size:",
                 minimum=2,
                 maximum=512,
                 step=1,
-                value=args.batch_size,
+                value=2,
             )
             grad_acumm = gr.Slider(
                 label="Grad accumulation steps:",
                 minimum=2,
                 maximum=128,
                 step=1,
-                value=args.grad_acumm,
+                value=1,
             )
             max_audio_length = gr.Slider(
                 label="Max permitted audio size in seconds:",
                 minimum=2,
                 maximum=20,
                 step=1,
-                value=args.max_audio_length,
+                value=11,
             )
             progress_train = gr.Label(
                 label="Progress:"
