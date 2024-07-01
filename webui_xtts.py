@@ -822,25 +822,20 @@ def close1abc():
     return "已终止所有一键三连进程", {"__type__": "update", "visible": True}, {"__type__": "update", "visible": False}
 
 with gr.Blocks(title="GPT-SoVITS WebUI") as app:
-    gr.Markdown(
-        value=
-            i18n("本软件以MIT协议开源, 作者不对软件具备任何控制力, 使用软件者、传播软件导出的声音者自负全责. <br>如不认可该条款, 则不能使用或引用软件包内任何代码和文件. 详见根目录<b>LICENSE</b>.")
-    )
-    gr.Markdown(
-        value=
-            i18n("中文教程文档：https://www.yuque.com/baicaigongchang1145haoyuangong/ib3g1e")
-    )
+    gr.Markdown("# <center>🌊💕🎶 XTTS 微调：2分钟语音，开启中日英16种语言真实拟声</center>")
+    gr.Markdown("## <center>🌟 只需2分钟的语音，一键在线微调 最强多语种模型</center>")
+    gr.Markdown("### <center>🤗 更多精彩，尽在[滔滔AI](https://www.talktalkai.com/)；滔滔AI，为爱滔滔！💕</center>")
 
     with gr.Tabs():
-        with gr.TabItem(i18n("0-前置数据集获取工具")):#提前随机切片防止uvr5爆内存->uvr5->slicer->asr->打标
-            gr.Markdown(value=i18n("0a-UVR5人声伴奏分离&去混响去延迟工具"))
+        with gr.TabItem(i18n("1 - 制作数据集")):#提前随机切片防止uvr5爆内存->uvr5->slicer->asr->打标
+            #gr.Markdown(value=i18n("0a-UVR5人声伴奏分离&去混响去延迟工具"))
             with gr.Row():
-                if_uvr5 = gr.Checkbox(label=i18n("是否开启UVR5-WebUI"),show_label=True)
-                uvr5_info = gr.Textbox(label=i18n("UVR5进程输出信息"))
-            gr.Markdown(value=i18n("0b-语音切分工具"))
+                if_uvr5 = gr.Checkbox(label=i18n("是否开启UVR5-WebUI"),show_label=True, visible=False)
+                uvr5_info = gr.Textbox(label=i18n("UVR5进程输出信息"), visible=False)
+            gr.Markdown(value=i18n("1a-语音切分工具"))
             with gr.Row():
                 with gr.Row():
-                    slice_inp_path=gr.Textbox(label=i18n("音频自动切分输入路径，可文件可文件夹"),value="")
+                    slice_inp_path=gr.Textbox(label=i18n("音频自动切分输入路径，可文件可文件夹"),info="您需要先在GPT-SoVITS-v2文件夹中上传训练音频，如jay.wav；音频时长建议大于2分钟",value="",placeholder="jay.wav")
                     slice_opt_root=gr.Textbox(label=i18n("切分后的子音频的输出根目录"),value="output/slicer_opt")
                     threshold=gr.Textbox(label=i18n("threshold:音量小于这个值视作静音的备选切割点"),value="-34")
                     min_length=gr.Textbox(label=i18n("min_length:每段最小多长，如果第一段太短一直和后面段连起来直到超过这个值"),value="4000")
@@ -854,14 +849,14 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     alpha=gr.Slider(minimum=0,maximum=1,step=0.05,label=i18n("alpha_mix:混多少比例归一化后音频进来"),value=0.25,interactive=True)
                     n_process=gr.Slider(minimum=1,maximum=n_cpu,step=1,label=i18n("切割使用的进程数"),value=4,interactive=True)
                     slicer_info = gr.Textbox(label=i18n("语音切割进程输出信息"))
-            gr.Markdown(value=i18n("0bb-语音降噪工具"))
+            #gr.Markdown(value=i18n("0bb-语音降噪工具"))
             with gr.Row():
-                open_denoise_button = gr.Button(i18n("开启语音降噪"), visible=True)
+                open_denoise_button = gr.Button(i18n("开启语音降噪"), visible=False)
                 close_denoise_button = gr.Button(i18n("终止语音降噪进程"), variant="primary",visible=False)
-                denoise_input_dir=gr.Textbox(label=i18n("降噪音频文件输入文件夹"),value="")
-                denoise_output_dir=gr.Textbox(label=i18n("降噪结果输出文件夹"),value="output/denoise_opt")
-                denoise_info = gr.Textbox(label=i18n("语音降噪进程输出信息"))
-            gr.Markdown(value=i18n("0c-中文批量离线ASR工具"))
+                denoise_input_dir=gr.Textbox(label=i18n("降噪音频文件输入文件夹"),value="", visible=False)
+                denoise_output_dir=gr.Textbox(label=i18n("降噪结果输出文件夹"),value="output/denoise_opt", visible=False)
+                denoise_info = gr.Textbox(label=i18n("语音降噪进程输出信息"), visible=False)
+            gr.Markdown(value=i18n("1b-批量语音识别"))
             with gr.Row():
                 open_asr_button = gr.Button(i18n("2. 开启离线批量ASR"), variant="primary",visible=True)
                 close_asr_button = gr.Button(i18n("终止ASR进程"), variant="primary",visible=False)
@@ -909,7 +904,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 asr_model.change(change_lang_choices, [asr_model], [asr_lang])
                 asr_model.change(change_size_choices, [asr_model], [asr_size])
                 
-            gr.Markdown(value=i18n("0d-语音文本校对标注工具"))
+            gr.Markdown(value=i18n("1c-语音文本校对标注工具"))
             with gr.Row():
                 if_label = gr.Checkbox(label=i18n("是否开启打标WebUI"),show_label=True)
                 path_list = gr.Textbox(
@@ -927,23 +922,23 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             open_denoise_button.click(open_denoise, [denoise_input_dir,denoise_output_dir], [denoise_info,open_denoise_button,close_denoise_button])
             close_denoise_button.click(close_denoise, [], [denoise_info,open_denoise_button,close_denoise_button])
 
-        with gr.Tab("1 - Fine-tuning XTTS Encoder"):
+        with gr.Tab("2 - XTTS模型微调"):
             inp_list_path_value = str(Path.cwd() / "output/asr_opt/slicer_opt.list")
             out_csv_path_value = str(Path.cwd() / "output.csv")
             inp_list_path = gr.Textbox(value=inp_list_path_value, label=".list文件地址")
             out_csv_path = gr.Textbox(value=out_csv_path_value, label=".csv文件地址")
             list_to_csv = gr.Button("3. 准备训练csv文件", variant="primary")
             train_csv = gr.Textbox(
-                label="Train CSV:",
+                label="训练数据集csv文件",
             )
             eval_csv = gr.Textbox(
-                label="Eval CSV:",
+                label="评价数据集csv文件",
             )
             list_to_csv.click(convert_list_to_csv, [inp_list_path, out_csv_path], [train_csv, eval_csv])
             out_path_value = str(Path.cwd() / "finetune_models")
             out_path = gr.Textbox(value=out_path_value, label="XTTS微调模型的文件夹")
             num_epochs =  gr.Slider(
-                label="Number of epochs:",
+                label="训练步数 Number of epochs:",
                 minimum=1,
                 maximum=100,
                 step=1,
@@ -958,7 +953,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             )
             grad_acumm = gr.Slider(
                 label="Grad accumulation steps:",
-                minimum=2,
+                minimum=1,
                 maximum=128,
                 step=1,
                 value=1,
@@ -969,12 +964,13 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 maximum=20,
                 step=1,
                 value=11,
+                visible=False,
             )
             progress_train = gr.Label(
-                label="Progress:"
+                label="训练进程"
             )
             logs_tts_train = gr.Textbox(
-                label="Logs:",
+                label="训练详细信息",
                 interactive=False,
             )
             app.load(read_logs, None, logs_tts_train, every=1)
@@ -1002,24 +998,24 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 clear_gpu_cache()
                 return "Model training done!", config_path, vocab_file, ft_xtts_checkpoint, speaker_wav
 
-        with gr.Tab("2 - Inference"):
+        with gr.Tab("3 - XTTS语音合成"):
             with gr.Row():
                 with gr.Column() as col1:
                     xtts_checkpoint = gr.Textbox(
-                        label="XTTS checkpoint path:",
+                        label="XTTS checkpoint 路径",
                         value="",
                     )
                     xtts_config = gr.Textbox(
-                        label="XTTS config path:",
+                        label="XTTS config 路径",
                         value="",
                     )
 
                     xtts_vocab = gr.Textbox(
-                        label="XTTS vocab path:",
+                        label="XTTS vocab 路径",
                         value="",
                     )
                     progress_load = gr.Label(
-                        label="Progress:"
+                        label="模型加载进程"
                     )
                     load_btn = gr.Button(value="5. 加载已训练好的模型", variant="primary")
 
@@ -1063,10 +1059,10 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
 
                 with gr.Column() as col3:
                     progress_gen = gr.Label(
-                        label="Progress:"
+                        label="语音合成进程"
                     )
-                    tts_output_audio = gr.Audio(label="Generated Audio.")
-                    reference_audio = gr.Audio(label="Reference audio used.")
+                    tts_output_audio = gr.Audio(label="为您合成的专属音频.")
+                    reference_audio = gr.Audio(label="您使用的参考音频")
 
             train_btn.click(
                 fn=train_model,
@@ -1103,7 +1099,13 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 outputs=[progress_gen, tts_output_audio, reference_audio],
             )
 
-  
+    gr.Markdown("### <center>注意❗：请不要生成会对个人以及组织造成侵害的内容，此程序仅供科研、学习及个人娱乐使用。请自觉合规使用此程序，程序开发者不负有任何责任。</center>")
+    gr.HTML('''
+        <div class="footer">
+                    <p>🌊🏞️🎶 - 江水东流急，滔滔无尽声。 明·顾璘
+                    </p>
+        </div>
+    ''')
     app.queue().launch(
         share=True,
         show_error=True,
