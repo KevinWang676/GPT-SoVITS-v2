@@ -851,6 +851,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                             interactive = True,
                             value="zh"
                         )
+                        lang = asr_lang
                     with gr.Row():
                         asr_info = gr.Textbox(label=i18n("ASR进程输出信息"))
 
