@@ -848,7 +848,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     hop_size=gr.Textbox(label=i18n("hop_size:怎么算音量曲线，越小精度越大计算量越高（不是精度越大效果越好）"),value="10")
                     max_sil_kept=gr.Textbox(label=i18n("max_sil_kept:切完后静音最多留多长"),value="500")
                 with gr.Row():
-                    open_slicer_button=gr.Button(i18n("开启语音切割"), variant="primary",visible=True)
+                    open_slicer_button=gr.Button(i18n("1. 开启语音切割"), variant="primary",visible=True)
                     close_slicer_button=gr.Button(i18n("终止语音切割"), variant="primary",visible=False)
                     _max=gr.Slider(minimum=0,maximum=1,step=0.05,label=i18n("max:归一化后最大值多少"),value=0.9,interactive=True)
                     alpha=gr.Slider(minimum=0,maximum=1,step=0.05,label=i18n("alpha_mix:混多少比例归一化后音频进来"),value=0.25,interactive=True)
@@ -863,7 +863,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 denoise_info = gr.Textbox(label=i18n("语音降噪进程输出信息"))
             gr.Markdown(value=i18n("0c-中文批量离线ASR工具"))
             with gr.Row():
-                open_asr_button = gr.Button(i18n("开启离线批量ASR"), variant="primary",visible=True)
+                open_asr_button = gr.Button(i18n("2. 开启离线批量ASR"), variant="primary",visible=True)
                 close_asr_button = gr.Button(i18n("终止ASR进程"), variant="primary",visible=False)
                 with gr.Column():
                     with gr.Row():
@@ -932,7 +932,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             out_csv_path_value = str(Path.cwd() / "output.csv")
             inp_list_path = gr.Textbox(value=inp_list_path_value, label=".list文件地址")
             out_csv_path = gr.Textbox(value=out_csv_path_value, label=".csv文件地址")
-            list_to_csv = gr.Button("准备训练.csv文件", variant="primary")
+            list_to_csv = gr.Button("3. 准备训练csv文件", variant="primary")
             train_csv = gr.Textbox(
                 label="Train CSV:",
             )
@@ -978,7 +978,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 interactive=False,
             )
             app.load(read_logs, None, logs_tts_train, every=1)
-            train_btn = gr.Button(value="Step 2 - Run the training")
+            train_btn = gr.Button(value="4. 开始模型训练", variant="primary")
 
             def train_model(language, train_csv, eval_csv, num_epochs, batch_size, grad_acumm, output_path, max_audio_length):
                 clear_gpu_cache()
@@ -1021,7 +1021,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     progress_load = gr.Label(
                         label="Progress:"
                     )
-                    load_btn = gr.Button(value="Step 3 - Load Fine-tuned XTTS model")
+                    load_btn = gr.Button(value="5. 加载已训练好的模型", variant="primary")
 
                 with gr.Column() as col2:
                     ref_audio_names = os.listdir("output/slicer_opt")
@@ -1059,7 +1059,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                         label="请填写语音合成的文本.",
                         placeholder="想说却还没说的，还很多",
                     )
-                    tts_btn = gr.Button(value="Step 4 - Inference")
+                    tts_btn = gr.Button(value="6. 开启AI语音之旅吧💕", variant="primary")
 
                 with gr.Column() as col3:
                     progress_gen = gr.Label(
