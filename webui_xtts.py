@@ -852,16 +852,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                             interactive = True,
                             value="zh"
                         )
-                        lang = gr.Dropdown(
-                            label="训练语音的语言",
-                            value="zh",
-                            choices=[
-                                "en",
-                                "zh",
-                                "ja"
-                            ],
-                        )
-                        out_path = gr.Textbox(value="/content/GPT-SoVITS-v2/finetune_models")
+                        lang = asr_lang
                     with gr.Row():
                         asr_info = gr.Textbox(label=i18n("ASR进程输出信息"))
 
@@ -899,6 +890,8 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             eval_csv = gr.Textbox(
                 label="Eval CSV:",
             )
+            out_path_value = str(Path.cwd() / "finetune_models")
+            out_path = gr.Textbox(value=out_path_value, label="XTTS微调模型的文件夹")
             num_epochs =  gr.Slider(
                 label="Number of epochs:",
                 minimum=1,
