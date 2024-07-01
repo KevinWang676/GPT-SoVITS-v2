@@ -835,7 +835,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             gr.Markdown(value=i18n("1a-语音切分工具"))
             with gr.Row():
                 with gr.Row():
-                    slice_inp_path=gr.Textbox(label=i18n("音频自动切分输入路径，可文件可文件夹"),info="您需要先在GPT-SoVITS-v2文件夹中上传训练音频，如jay.wav；音频时长建议大于2分钟",value="",placeholder="jay.wav")
+                    slice_inp_path=gr.Textbox(label=i18n("音频自动切分输入路径，可文件可文件夹"),info="您需要先在xtts-v2文件夹中上传训练音频，如jay.wav；音频时长建议大于2分钟",value="",placeholder="jay.wav")
                     slice_opt_root=gr.Textbox(label=i18n("切分后的子音频的输出根目录"),value="output/slicer_opt")
                     threshold=gr.Textbox(label=i18n("threshold:音量小于这个值视作静音的备选切割点"),value="-34")
                     min_length=gr.Textbox(label=i18n("min_length:每段最小多长，如果第一段太短一直和后面段连起来直到超过这个值"),value="4000")
