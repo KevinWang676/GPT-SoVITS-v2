@@ -1024,9 +1024,13 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     load_btn = gr.Button(value="Step 3 - Load Fine-tuned XTTS model")
 
                 with gr.Column() as col2:
-                    speaker_reference_audio = gr.Textbox(
-                        label="Speaker reference audio:",
-                        value="",
+                    ref_audio_names = os.listdir("output/slicer_opt")
+                    ref_audio_list = [os.path.join("output/slicer_opt", ref_audio_name) for ref_audio_name in ref_audio_names]
+                    speaker_reference_audio = gr.Dropdown(
+                        label="请选择一条参考音频",
+                        info="不同参考音频对应的合成效果不同，您可以多次尝试",
+                        value=ref_audio_list[0],
+                        choices = ref_audio_list
                     )
                     tts_language = gr.Dropdown(
                         label="语音合成的语言",
@@ -1052,8 +1056,8 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     )
 
                     tts_text = gr.Textbox(
-                        label="Input Text.",
-                        value="This model sounds really good and above all, it's reasonably fast.",
+                        label="请填写语音合成的文本.",
+                        placeholder="想说却还没说的，还很多",
                     )
                     tts_btn = gr.Button(value="Step 4 - Inference")
 
