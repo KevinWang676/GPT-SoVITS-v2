@@ -999,24 +999,11 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                         value="",
                     )
                     tts_language = gr.Dropdown(
-                        label="Language",
-                        value="en",
+                        label="训练语音的语种",
+                        value="zh",
                         choices=[
                             "en",
-                            "es",
-                            "fr",
-                            "de",
-                            "it",
-                            "pt",
-                            "pl",
-                            "tr",
-                            "ru",
-                            "nl",
-                            "cs",
-                            "ar",
                             "zh",
-                            "hu",
-                            "ko",
                             "ja",
                         ]
                     )
