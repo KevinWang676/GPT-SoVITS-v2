@@ -115,6 +115,7 @@ def convert_list_to_csv(input_file, output_file):
         print("Conversion to CSV completed successfully.")
         split_csv(output_file, "xtts_csv/train.csv", "xtts_csv/eval.csv")
         print("Split completed successfully")
+        return "xtts_csv/train.csv", "xtts_csv/eval.csv"
     except Exception as e:
         print(f"An error occurred: {e}")
 
@@ -928,12 +929,18 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             close_denoise_button.click(close_denoise, [], [denoise_info,open_denoise_button,close_denoise_button])
 
         with gr.Tab("1 - Fine-tuning XTTS Encoder"):
+            inp_list_path_value = str(Path.cwd() / "output/asr_opt/slicer_opt.list")
+            out_csv_path_value = str(Path.cwd() / "output.csv")
+            inp_list_path = gr.Textbox(value=inp_list_path_value, label=".list文件地址")
+            out_csv_path = gr.Textbox(value=out_csv_path, label=".csv文件地址")
+            list_to_csv = gr.Button("准备训练.csv文件", variant="primary")
             train_csv = gr.Textbox(
                 label="Train CSV:",
             )
             eval_csv = gr.Textbox(
                 label="Eval CSV:",
             )
+            list_to_csv.click(convert_list_to_csv, [inp_list_path, out_csv_path], [train_csv, eval_csv])
             out_path_value = str(Path.cwd() / "finetune_models")
             out_path = gr.Textbox(value=out_path_value, label="XTTS微调模型的文件夹")
             num_epochs =  gr.Slider(
