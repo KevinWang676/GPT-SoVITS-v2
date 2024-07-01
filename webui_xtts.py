@@ -74,6 +74,50 @@ from TTS.demos.xtts_ft_demo.utils.gpt_train import train_gpt
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.tts.models.xtts import Xtts
 
+# from .list to .csv
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+def split_csv(input_csv, train_csv, eval_csv, eval_size=0.15):
+    # Load the data from the CSV file
+    data = pd.read_csv(input_csv, delimiter='|', header=0)
+
+    # Split the data into training and evaluation sets
+    train_data, eval_data = train_test_split(data, test_size=eval_size, random_state=42)
+
+    # Save the training data to a CSV file
+    train_data.to_csv(train_csv, index=False, sep='|')
+
+    # Save the evaluation data to a CSV file
+    eval_data.to_csv(eval_csv, index=False, sep='|')
+
+    print("CSV files have been successfully split.")
+
+
+def convert_list_to_csv(input_file, output_file):
+    try:
+        # Open the input .list file to read
+        os.makedirs("xtts_csv", exist_ok = True) 
+        with open(input_file, 'r', encoding='utf-8') as infile:
+            # Open the output .csv file to write
+            with open(output_file, 'w', encoding='utf-8') as outfile:
+                # Write the header to the CSV
+                outfile.write("audio_file|text|speaker_name\n")
+                # Process each line in the input file
+                for line in infile:
+                    parts = line.strip().split('|')
+                    if len(parts) == 4:
+                        # Extract relevant parts: WAV file path and transcription
+                        wav_path = parts[0]
+                        transcription = parts[3]
+                        # Write the formatted line to the CSV file
+                        outfile.write(f"{wav_path}|{transcription}|coqui\n")
+        print("Conversion to CSV completed successfully.")
+        split_csv(output_file, "xtts_csv/train.csv", "xtts_csv/eval.csv")
+        print("Split completed successfully")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 
 def clear_gpu_cache():
     # clear the GPU cache
