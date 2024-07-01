@@ -194,7 +194,7 @@ sys.stderr = sys.stdout
 # logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 import logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.WARNING,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
         logging.StreamHandler(sys.stdout)
