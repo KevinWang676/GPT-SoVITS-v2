@@ -23,7 +23,7 @@ asr_dict = {
         'path': 'funasr_asr.py',
     },
     "Faster Whisper (多语种)": {
-        'lang': ['auto', 'zh', 'en', 'ja'],
+        'lang': ['zh', 'en', 'ja'],
         'size': check_fw_local_models(),
         'path': 'fasterwhisper_asr.py'
     }
