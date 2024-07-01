@@ -998,8 +998,8 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 clear_gpu_cache()
                 ref_audio_names = os.listdir("output/slicer_opt")
                 ref_audio_list = [os.path.join("output/slicer_opt", ref_audio_name) for ref_audio_name in ref_audio_names]
-                first_five_ref_audio = "\n".join(ref_audio_list[0:5])
-                return "模型已成功微调！", config_path, vocab_file, ft_xtts_checkpoint, first_five_ref_audio, speaker_wav
+                #first_five_ref_audio = "\n".join(ref_audio_list[0:5])
+                return "模型已成功微调！", config_path, vocab_file, ft_xtts_checkpoint, ref_audio_list[0:8], speaker_wav
 
         with gr.Tab("3 - XTTS语音合成"):
             with gr.Row():
@@ -1023,11 +1023,11 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     load_btn = gr.Button(value="5. 加载已训练好的模型", variant="primary")
 
                 with gr.Column() as col2:
-                    first_five_speaker_reference_audio = gr.Textbox(label="您可以选用的参考音频", visible=False)
+                    first_eight_speaker_reference_audio = gr.Dropdown(label="您可以选用的参考音频", visible=False)
                     speaker_reference_audio = gr.Dropdown(
                         label="您正在使用的参考音频",
                         info="不同参考音频对应的合成效果不同，您可以多次尝试",
-                        choices = first_five_speaker_reference_audio.strip().split("\n"),
+                        choices = first_eight_speaker_reference_audio,
                         value="",
                     )
                     tts_language = gr.Dropdown(
@@ -1078,7 +1078,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     out_path,
                     max_audio_length,
                 ],
-                outputs=[progress_train, xtts_config, xtts_vocab, xtts_checkpoint, first_five_speaker_reference_audio, speaker_reference_audio],
+                outputs=[progress_train, xtts_config, xtts_vocab, xtts_checkpoint, first_eight_speaker_reference_audio, speaker_reference_audio],
             )
             
             load_btn.click(
