@@ -853,24 +853,11 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                             value="zh"
                         )
                         lang = gr.Dropdown(
-                            label="Dataset Language",
-                            value="en",
+                            label="训练语音的语言",
+                            value="zh",
                             choices=[
                                 "en",
-                                "es",
-                                "fr",
-                                "de",
-                                "it",
-                                "pt",
-                                "pl",
-                                "tr",
-                                "ru",
-                                "nl",
-                                "cs",
-                                "ar",
                                 "zh",
-                                "hu",
-                                "ko",
                                 "ja"
                             ],
                         )
@@ -999,14 +986,28 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                         value="",
                     )
                     tts_language = gr.Dropdown(
-                        label="训练语音的语种",
+                        label="语音合成的语言",
                         value="zh",
                         choices=[
                             "en",
+                            "es",
+                            "fr",
+                            "de",
+                            "it",
+                            "pt",
+                            "pl",
+                            "tr",
+                            "ru",
+                            "nl",
+                            "cs",
+                            "ar",
                             "zh",
+                            "hu",
+                            "ko",
                             "ja",
                         ]
                     )
+
                     tts_text = gr.Textbox(
                         label="Input Text.",
                         value="This model sounds really good and above all, it's reasonably fast.",
