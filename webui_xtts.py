@@ -932,7 +932,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             inp_list_path_value = str(Path.cwd() / "output/asr_opt/slicer_opt.list")
             out_csv_path_value = str(Path.cwd() / "output.csv")
             inp_list_path = gr.Textbox(value=inp_list_path_value, label=".list文件地址")
-            out_csv_path = gr.Textbox(value=out_csv_path, label=".csv文件地址")
+            out_csv_path = gr.Textbox(value=out_csv_path_value, label=".csv文件地址")
             list_to_csv = gr.Button("准备训练.csv文件", variant="primary")
             train_csv = gr.Textbox(
                 label="Train CSV:",
