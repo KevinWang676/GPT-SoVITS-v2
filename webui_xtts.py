@@ -852,6 +852,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                             value="zh"
                         )
                         lang = asr_lang
+                        out_path = str(Path.cwd() / "finetune_models")
                     with gr.Row():
                         asr_info = gr.Textbox(label=i18n("ASR进程输出信息"))
 
