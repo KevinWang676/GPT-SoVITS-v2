@@ -1020,13 +1020,10 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     load_btn = gr.Button(value="5. 加载已训练好的模型", variant="primary")
 
                 with gr.Column() as col2:
-                    ref_audio_names = os.listdir("output/slicer_opt")
-                    ref_audio_list = [os.path.join("output/slicer_opt", ref_audio_name) for ref_audio_name in ref_audio_names]
-                    speaker_reference_audio = gr.Dropdown(
-                        label="请选择一条参考音频",
+                    speaker_reference_audio = gr.Textbox(
+                        label="您使用的参考音频",
                         info="不同参考音频对应的合成效果不同，您可以多次尝试",
-                        value=ref_audio_list[0],
-                        choices = ref_audio_list
+                        value="",
                     )
                     tts_language = gr.Dropdown(
                         label="语音合成的语言",
