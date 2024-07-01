@@ -97,7 +97,6 @@ def split_csv(input_csv, train_csv, eval_csv, eval_size=0.15):
 def convert_list_to_csv(input_file, output_file):
     try:
         # Open the input .list file to read
-        os.makedirs("xtts_csv", exist_ok = True) 
         with open(input_file, 'r', encoding='utf-8') as infile:
             # Open the output .csv file to write
             with open(output_file, 'w', encoding='utf-8') as outfile:
@@ -113,9 +112,9 @@ def convert_list_to_csv(input_file, output_file):
                         # Write the formatted line to the CSV file
                         outfile.write(f"{wav_path}|{transcription}|coqui\n")
         print("Conversion to CSV completed successfully.")
-        split_csv(output_file, "xtts_csv/train.csv", "xtts_csv/eval.csv")
+        split_csv(output_file, "train.csv", "eval.csv")
         print("Split completed successfully")
-        return "xtts_csv/train.csv", "xtts_csv/eval.csv"
+        return "train.csv", "eval.csv"
     except Exception as e:
         print(f"An error occurred: {e}")
 
