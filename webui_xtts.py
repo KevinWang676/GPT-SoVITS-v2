@@ -852,8 +852,29 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                             interactive = True,
                             value="zh"
                         )
-                        lang = asr_lang
-                        out_path = str(Path.cwd() / "finetune_models")
+                        lang = gr.Dropdown(
+                            label="Dataset Language",
+                            value="en",
+                            choices=[
+                                "en",
+                                "es",
+                                "fr",
+                                "de",
+                                "it",
+                                "pt",
+                                "pl",
+                                "tr",
+                                "ru",
+                                "nl",
+                                "cs",
+                                "ar",
+                                "zh",
+                                "hu",
+                                "ko",
+                                "ja"
+                            ],
+                        )
+                        out_path = gr.Textbox(value="/content/GPT-SoVITS-v2/finetune_models")
                     with gr.Row():
                         asr_info = gr.Textbox(label=i18n("ASR进程输出信息"))
 
