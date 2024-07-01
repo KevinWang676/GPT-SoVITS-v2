@@ -1023,11 +1023,12 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                     load_btn = gr.Button(value="5. 加载已训练好的模型", variant="primary")
 
                 with gr.Column() as col2:
-                    first_five_speaker_reference_audio = gr.Textbox(label="您可以选用的参考音频")
-                    speaker_reference_audio = gr.Textbox(
+                    first_five_speaker_reference_audio = gr.Textbox(label="您可以选用的参考音频", visible=False)
+                    speaker_reference_audio = gr.Dropdown(
                         label="您正在使用的参考音频",
                         info="不同参考音频对应的合成效果不同，您可以多次尝试",
-                        value=first_five_speaker_reference_audio,
+                        choices = first_five_speaker_reference_audio.strip().split("\n"),
+                        value="",
                     )
                     tts_language = gr.Dropdown(
                         label="语音合成的语言",
