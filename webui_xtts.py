@@ -138,8 +138,8 @@ def load_model(xtts_checkpoint, xtts_config, xtts_vocab):
     if torch.cuda.is_available():
         XTTS_MODEL.cuda()
 
-    print("Model Loaded!")
-    return "Model Loaded!"
+    print("模型已成功加载！")
+    return "模型已成功加载！"
 
 def run_tts(lang, tts_text, speaker_audio_file):
     if XTTS_MODEL is None or not speaker_audio_file:
@@ -163,7 +163,7 @@ def run_tts(lang, tts_text, speaker_audio_file):
         out_path = fp.name
         torchaudio.save(out_path, out["wav"], 24000)
 
-    return "Speech generated !", out_path, speaker_audio_file
+    return "推理成功，快来听听吧！", out_path, speaker_audio_file
 
 
 
@@ -994,12 +994,12 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
                 os.system(f"cp {vocab_file} {exp_path}")
 
                 ft_xtts_checkpoint = os.path.join(exp_path, "best_model.pth")
-                print("Model training done!")
+                print("模型已成功微调！")
                 clear_gpu_cache()
                 ref_audio_names = os.listdir("output/slicer_opt")
                 ref_audio_list = [os.path.join("output/slicer_opt", ref_audio_name) for ref_audio_name in ref_audio_names]
                 first_five_ref_audio = "\n".join(ref_audio_list[0:5])
-                return "Model training done!", config_path, vocab_file, ft_xtts_checkpoint, first_five_ref_audio, speaker_wav
+                return "模型已成功微调！", config_path, vocab_file, ft_xtts_checkpoint, first_five_ref_audio, speaker_wav
 
         with gr.Tab("3 - XTTS语音合成"):
             with gr.Row():
