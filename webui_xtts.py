@@ -145,7 +145,7 @@ def run_tts(lang, tts_text, speaker_audio_file):
     if XTTS_MODEL is None or not speaker_audio_file:
         return "您需要先执行第5步 - 加载模型", None, None
 
-    gpt_cond_latent, speaker_embedding = XTTS_MODEL.get_conditioning_latents(audio_path=speaker_audio_file.strip(), gpt_cond_len=XTTS_MODEL.config.gpt_cond_len, max_ref_length=XTTS_MODEL.config.max_ref_len, sound_norm_refs=XTTS_MODEL.config.sound_norm_refs)
+    gpt_cond_latent, speaker_embedding = XTTS_MODEL.get_conditioning_latents(audio_path="".join([item for item in speaker_audio_file.strip().split("\n") if item != ""]), gpt_cond_len=XTTS_MODEL.config.gpt_cond_len, max_ref_length=XTTS_MODEL.config.max_ref_len, sound_norm_refs=XTTS_MODEL.config.sound_norm_refs)
     out = XTTS_MODEL.inference(
         text=tts_text.strip(),
         language=lang,
