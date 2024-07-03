@@ -978,6 +978,7 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
             train_btn = gr.Button(value="4. 开始模型训练", variant="primary")
 
             def train_model(language, train_csv, eval_csv, num_epochs, batch_size, grad_acumm, output_path, max_audio_length):
+                print(f"开始训练，训练素材的语种为：{language}")
                 clear_gpu_cache()
                 if not train_csv or not eval_csv:
                     return "You need to run the data processing step or manually set `Train CSV` and `Eval CSV` fields !", "", "", "", ""
